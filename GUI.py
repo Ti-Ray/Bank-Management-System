@@ -22,6 +22,12 @@ pg1img = customtkinter.CTkImage(light_image=Image.open(img1_path), size=(img1_w,
 lab = customtkinter.CTkLabel(master=page1, image=pg1img, text=" ")
 lab.pack(fill="both", expand=True, padx=10, pady=10)
 
+login_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown', text="LOGIN")
+login_btn.place(anchor=CENTER, relx=.5, rely=.4)
+
+login_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown', text="REGISTER")
+login_btn.place(anchor=CENTER, relx=.5, rely=.5)
+
 # Functions
 
 main.mainloop()
