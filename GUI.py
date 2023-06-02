@@ -133,7 +133,7 @@ def reg():
                                       fg_color="blue")
     reg_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
-    bck_btn = customtkinter.CTkButton(master=reg_frame, width=100, height=50, bg_color='black', fg_color='brown',
+    bck_btn = customtkinter.CTkButton(master=reg_frame, width=100, height=50, bg_color='black', fg_color='blue',
                                       text='BACK', command=bck_reg)
     bck_btn.place(anchor=CENTER, relx=.1, rely=.1)
 
