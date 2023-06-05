@@ -21,6 +21,24 @@ main.geometry("850x600")
 
 md_page = customtkinter.CTkFrame(master=main)
 md_page.pack(fill="both", expand=True, padx=10, pady=10)
+img_w = 700
+img_h = 1400
+img3_path = "in.png"
+img3 = customtkinter.CTkImage(light_image=Image.open(img3_path), size=(img_h, img_w))
+lab4 = customtkinter.CTkLabel(master=md_page, image=img3, text=" ")
+lab4.pack(fill="both", expand=True, padx=10, pady=10)
+
+with_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Withdraw")
+with_btn.place(anchor=CENTER, relx=.5, rely=.4)
+
+dep_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Deposit")
+dep_btn.place(anchor=CENTER, relx=.5, rely=.5)
+
+check_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Check Balance")
+check_btn.place(anchor=CENTER, relx=.5, rely=.6)
+
+del_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Delete Account", text_color="red", fg_color="green")
+del_btn.place(anchor=CENTER, relx=.5, rely=.7)
 
 
 # def login_get():
