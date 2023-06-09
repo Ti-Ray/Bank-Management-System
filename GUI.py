@@ -2,10 +2,7 @@
 # - Remember to change the about us link
 # - Remember to comment properly and define clearly
 
-import os
-import time
 import webbrowser
-
 import customtkinter
 from tkinter import *
 from PIL import Image
@@ -24,10 +21,6 @@ main.geometry("850x600")
 
 # # Frames
 def logged():
-    def bck_main():
-        md_page.destroy()
-        main_pg()
-
     md_page = customtkinter.CTkFrame(master=main)
     md_page.pack(fill="both", expand=True, padx=10, pady=10)
     img_w = 700
@@ -59,8 +52,8 @@ def logged():
     del_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
     # This button is for the user to logout of their account
-    lgout_btn = customtkinter.CTkButton(master=md_page, width=90, height=2, text="Log Out", fg_color="brown")
-    lgout_btn.place(anchor=CENTER, relx=.1, rely=.1, command=lambda: back(login, md_page))
+    logout_btn = customtkinter.CTkButton(master=md_page, width=90, height=2, text="Log Out", fg_color="brown")
+    logout_btn.place(anchor=CENTER, relx=.1, rely=.1, command=lambda: back(login, md_page))
 
 
 def main_pg():
@@ -72,7 +65,6 @@ def main_pg():
         webbrowser.open_new_tab(url)
     page1 = customtkinter.CTkFrame(master=main, width=500, height=500)  # This is frame holds login or register buttons
     page1.pack(fill="both", expand=True, padx=10, pady=10)
-    # page1.place(anchor="c", relx=.5, rely=.5)
 
     # Objects
     img1_h = 1400
@@ -89,12 +81,12 @@ def main_pg():
 
     # This button is to take the user to the registration page
     reg_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
-                                        text="REGISTER", command=lambda: enter(reg, page1))
+                                      text="REGISTER", command=lambda: enter(reg, page1))
     reg_btn.place(anchor=CENTER, relx=.5, rely=.5)
 
     # This button is to completely close the program
     cls_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
-                                        text="close", command=close)
+                                      text="close", command=close)
     cls_btn.place(anchor=CENTER, relx=.5, rely=.6)
 
     # This button is to take the user to the company website to learn more about the company
@@ -152,11 +144,11 @@ def reg():
     reg_frame = customtkinter.CTkFrame(master=main)  # creates the registration page
     reg_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
-    regimg_h = 700  # sizes the images height in the page
-    regimg_w = 1340  # sizes the images width in the page
-    regimg_path = "reg.png"  # Directs to the image path or name in the file
-    img3 = customtkinter.CTkImage(Image.open(regimg_path),
-                                  size=(regimg_w, regimg_h))  # Imports the image from the path Dir
+    reg_img_h = 700  # sizes the images height in the page
+    reg_img_w = 1340  # sizes the images width in the page
+    reg_img_path = "reg.png"  # Directs to the image path or name in the file
+    img3 = customtkinter.CTkImage(Image.open(reg_img_path),
+                                  size=(reg_img_w, reg_img_h))  # Imports the image from the path Dir
     lab3 = customtkinter.CTkLabel(master=reg_frame, text=" ", image=img3)  # Places the image onto the page
     lab3.pack(fill="both", expand=True)
 
