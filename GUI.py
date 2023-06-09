@@ -52,8 +52,9 @@ def logged():
     del_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
     # This button is for the user to logout of their account
-    logout_btn = customtkinter.CTkButton(master=md_page, width=90, height=2, text="Log Out", fg_color="brown")
-    logout_btn.place(anchor=CENTER, relx=.1, rely=.1, command=lambda: back(login, md_page))
+    logout_btn = customtkinter.CTkButton(master=md_page, width=90, height=2, text="Log Out", fg_color="brown",
+                                         command=lambda: back(main_pg, md_page))
+    logout_btn.place(anchor=CENTER, relx=.1, rely=.1)
 
 
 def main_pg():
@@ -191,6 +192,11 @@ def back(prev_page, val):
     val.destroy()
     prev_page()
 
+
+# File creation
+# This is used in the account creation method to implement the file creation when a file check is done to recognise
+# that the name starting the account does not have another account and if so they can create another of a different
+# version.
 
 # Functions
 main_pg()
