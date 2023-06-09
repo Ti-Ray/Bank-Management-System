@@ -23,8 +23,11 @@ main.geometry("850x600")
 
 
 # # Frames
-
 def logged():
+    def bck_main():
+        md_page.destroy()
+        main_pg()
+
     md_page = customtkinter.CTkFrame(master=main)
     md_page.pack(fill="both", expand=True, padx=10, pady=10)
     img_w = 700
@@ -34,40 +37,35 @@ def logged():
     lab4 = customtkinter.CTkLabel(master=md_page, image=img3, text=" ")
     lab4.pack(fill="both", expand=True, padx=10, pady=10)
 
+    # This button is for the user to carry out a cash withdrawal from their account
     with_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Withdraw")
     with_btn.place(anchor=CENTER, relx=.5, rely=.4)
 
+    # This button is for the user to deposit cash to their account
     dep_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Deposit")
     dep_btn.place(anchor=CENTER, relx=.5, rely=.5)
 
+    # This button is for the user to check the balance in their bank account
     check_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Check Balance")
     check_btn.place(anchor=CENTER, relx=.5, rely=.6)
 
+    # This button is for the user to request a bank statement for their accounts transactions
     state_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Statement")
     state_btn.place(anchor=CENTER, relx=.5, rely=.7)
 
+    # This button is for the user to end their account
     del_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Delete Account", text_color="red",
                                       fg_color="green")
     del_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
+    # This button is for the user to logout of their account
     lgout_btn = customtkinter.CTkButton(master=md_page, width=90, height=2, text="Log Out", fg_color="brown")
-    lgout_btn.place(anchor=CENTER, relx=.1, rely=.1)
-    # login_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
-    #                                     text="REGISTER", command=reg_get)
-    # login_btn.place(anchor=CENTER, relx=.5, rely=.5)
+    lgout_btn.place(anchor=CENTER, relx=.1, rely=.1, command=lambda: back(login, md_page))
 
 
 def main_pg():
     def close():
         main.destroy()
-
-    def reg_get():
-        page1.destroy()
-        reg()
-
-    def login_get():
-        page1.destroy()
-        login()
 
     # # main page when the app is started
     def callback(url):
@@ -84,18 +82,22 @@ def main_pg():
     lab = customtkinter.CTkLabel(master=page1, image=pg1img, text=" ")
     lab.pack(fill="both", expand=True, padx=10, pady=10)
 
+    # This button is to take the user to the login page
     login_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
-                                        text="LOGIN", command=login_get)
+                                        text="LOGIN", command=lambda: enter(login, page1))
     login_btn.place(anchor=CENTER, relx=.5, rely=.4)
 
-    login_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
-                                        text="REGISTER", command=reg_get)
-    login_btn.place(anchor=CENTER, relx=.5, rely=.5)
+    # This button is to take the user to the registration page
+    reg_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
+                                        text="REGISTER", command=lambda: enter(reg, page1))
+    reg_btn.place(anchor=CENTER, relx=.5, rely=.5)
 
+    # This button is to completely close the program
     cls_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
                                         text="close", command=close)
     cls_btn.place(anchor=CENTER, relx=.5, rely=.6)
 
+    # This button is to take the user to the company website to learn more about the company
     about_link = customtkinter.CTkButton(master=page1, text="About us", bg_color="black", fg_color="brown", width=100,
                                          height=50)
     about_link.place(anchor=CENTER, relx=.5, rely=.7)
@@ -103,14 +105,11 @@ def main_pg():
 
 
 def login():
-    def bck_log():
-        lg_frame.destroy()
-        main_pg()
     # Login page Happens when the login button is pressed
-
     lg_frame = customtkinter.CTkFrame(master=main)
     lg_frame.pack(fill="both", expand=True, padx=10, pady=10)
 
+    # This section places the image for the login page
     img2_h = 900
     img2_w = 1400
     img2_path = "login.png"
@@ -118,28 +117,29 @@ def login():
     lab2 = customtkinter.CTkLabel(master=lg_frame, text=" ", image=img2)
     lab2.pack(fill="both", expand=True)
 
+    # This entry section is for the user to enter their email address
     email_ent = customtkinter.CTkEntry(master=lg_frame, placeholder_text="Enter your Email", width=200, height=20,
                                        bg_color="blue", fg_color="blue")
     email_ent.place(anchor=CENTER, relx=.5, rely=.5)
 
+    # This Entry section is for the user to enter their password
     pass_ent = customtkinter.CTkEntry(master=lg_frame, placeholder_text="Enter Your Password", width=200, height=20,
                                       bg_color="blue", fg_color="blue")
     pass_ent.place(anchor=CENTER, relx=.5, rely=.6)
 
+    # This button is for when the user has input their data and wants to log in
     login_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, text="Login", fg_color="blue",
-                                        bg_color="blue")
+                                        bg_color="blue", command=lambda: enter(logged, lg_frame))
     login_btn.place(anchor=CENTER, relx=.5, rely=.7)
 
-    # for_btn = customtkinter.CTkButton(master=lg_frame, text="Forgot login", width=200, height=2,
-    #                                   bg_color="blue", fg_color="blue")
-    # for_btn.place(anchor=CENTER, relx=.5, rely=.8)
-
+    # This is a forgot log in details for the user to recover their data
     for_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, bg_color='blue', fg_color='blue',
                                       text="Forgot Login")
     for_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
+    # This is a back button that returns the user to the main page
     bck_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, bg_color='blue', fg_color='blue',
-                                      text='BACK', command=bck_log)
+                                      text='BACK', command=lambda: back(main_pg, lg_frame))
     bck_btn.place(anchor=CENTER, relx=.1, rely=.1)
 
 
@@ -188,6 +188,16 @@ def reg():
     bck_btn = customtkinter.CTkButton(master=reg_frame, width=100, height=50, bg_color='black', fg_color='blue',
                                       text='BACK', command=bck_reg)
     bck_btn.place(anchor=CENTER, relx=.1, rely=.1)
+
+
+def enter(next_page, frm):
+    frm.destroy()
+    next_page()
+
+
+def back(prev_page, val):
+    val.destroy()
+    prev_page()
 
 
 # Functions
