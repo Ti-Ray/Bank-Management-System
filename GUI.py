@@ -1,11 +1,13 @@
 # # POINTS TO REMEMBER
 # - Remember to change the about us link
 # - Remember to comment properly and define clearly
-
+import random
 import webbrowser
+from CTkMessagebox import CTkMessagebox
 import customtkinter
 from tkinter import *
 from PIL import Image
+
 
 customtkinter.set_default_color_theme("dark-blue")
 customtkinter.set_appearance_mode("Dark")
@@ -20,6 +22,14 @@ main.geometry("850x600")
 
 
 # # Frames
+global nm_ent
+global em_ent
+global pass_ent
+global cpass_ent
+global acc_type
+global account
+
+
 def logged():
     md_page = customtkinter.CTkFrame(master=main)
     md_page.pack(fill="both", expand=True, padx=10, pady=10)
@@ -64,6 +74,7 @@ def main_pg():
     # # main page when the app is started
     def callback(url):
         webbrowser.open_new_tab(url)
+
     page1 = customtkinter.CTkFrame(master=main, width=500, height=500)  # This is frame holds login or register buttons
     page1.pack(fill="both", expand=True, padx=10, pady=10)
 
@@ -116,9 +127,9 @@ def login():
     email_ent.place(anchor=CENTER, relx=.5, rely=.5)
 
     # This Entry section is for the user to enter their password
-    pass_ent = customtkinter.CTkEntry(master=lg_frame, placeholder_text="Enter Your Password", width=200, height=20,
+    lg_pass_ent = customtkinter.CTkEntry(master=lg_frame, placeholder_text="Enter Your Password", width=200, height=20,
                                       bg_color="blue", fg_color="blue")
-    pass_ent.place(anchor=CENTER, relx=.5, rely=.6)
+    lg_pass_ent.place(anchor=CENTER, relx=.5, rely=.6)
 
     # This button is for when the user has input their data and wants to log in
     login_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, text="Login", fg_color="blue",
@@ -137,9 +148,27 @@ def login():
 
 
 def reg():
-    def bck_reg():
-        reg_frame.destroy()
-        main_pg()
+    def check():
+        try:
+            if nm_ent.get() == "":
+                CTkMessagebox(title="ERROR", message="Enter your full name")
+            elif em_ent.get() == "":
+                CTkMessagebox(title="ERROR", message="Enter your email")
+            elif pass_ent.get() == "":
+                CTkMessagebox(title="ERROR", message="Enter a password")
+            elif cpass_ent.get() != pass_ent.get() or cpass_ent.get() == " ":
+                CTkMessagebox(title="ERROR", message="Passwords do not match")
+            elif acc_type.get() == "Account Type":
+                CTkMessagebox(title="ERROR", message="Select account Type")
+            else:
+                # CTkMessagebox(title="SUCCESS", message="Registration Success")
+                name = nm_ent.get()
+                mail = em_ent.get()
+                pas = pass_ent.get()
+                file_create()
+        except:
+            CTkMessagebox(title="ERR", message="Check the code in try above code line 151 - 163")
+            main_pg()
     # registration page
 
     reg_frame = customtkinter.CTkFrame(master=main)  # creates the registration page
@@ -175,11 +204,11 @@ def reg():
     acc_type.place(anchor=CENTER, relx=.5, rely=.7)
 
     reg_btn = customtkinter.CTkButton(master=reg_frame, text="REGISTER", width=100, height=2, bg_color="green",
-                                      fg_color="blue")
+                                      fg_color="blue", command=check)
     reg_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
     bck_btn = customtkinter.CTkButton(master=reg_frame, width=100, height=50, bg_color='black', fg_color='blue',
-                                      text='BACK', command=bck_reg)
+                                      text='BACK', command=lambda: back(main_pg, reg_frame))
     bck_btn.place(anchor=CENTER, relx=.1, rely=.1)
 
 
@@ -198,6 +227,27 @@ def back(prev_page, val):
 # that the name starting the account does not have another account and if so they can create another of a different
 # version.
 
+# Create an account
+
+
+def file_create():
+    try:
+        global account
+        account = random.randint(0, 20)
+        file_cr = open(str(account)+"-reg.txt", "a+")
+        # Error begins here where the files are being created but data is not being fetched
+        file_cr.write(nm_ent.get() + "\n")
+        file_cr.write(em_ent() + "\n")
+        file_cr.write(acc_type() + "\n")
+        file_cr.write(pass_ent.get() + "\n")
+        CTkMessagebox(title="SUCCESS", message=("Success Your Account numbers is " + str(account)), icon="check")
+    except:
+        CTkMessagebox(title="ERROR", message="Try Again", icon="cancel")
+
+
+# Check the balance
+# Delete an account
+# Edit account information
 # Functions
 main_pg()
 main.mainloop()
