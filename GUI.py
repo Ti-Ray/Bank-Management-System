@@ -236,6 +236,7 @@ def file_create():
         account = random.randint(0, 20)
         file_cr = open(str(account)+"-reg.txt", "a+")
         # Error begins here where the files are being created but data is not being fetched
+        # Start zone
         file_cr.write(nm_ent.get() + "\n")
         file_cr.write(em_ent() + "\n")
         file_cr.write(acc_type() + "\n")
