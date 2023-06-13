@@ -28,6 +28,9 @@ global pass_ent
 global cpass_ent
 global acc_type
 global account
+global an_ent
+global email_ent
+global lg_pass_ent
 
 
 def logged():
@@ -109,6 +112,29 @@ def main_pg():
 
 
 def login():
+    def login_check():
+        try:
+            path = str(an_ent.get()+"-reg.txt")
+            num = lg_pass_ent.get()
+            em = email_ent.get()
+            file_ch = open(path, "r")
+            name = file_ch.readline()  # Reads the first line containing the name
+            e_mail = file_ch.readline()  # Reads the second line containing the email
+            entry = file_ch.readline()  # Reads the third line containing the password
+            a_type = file_ch.readline()  # Reads the account type
+            print(name)
+            print(e_mail)
+            print(entry)
+            print(a_type)
+            if em != e_mail:
+                CTkMessagebox(title="Error", message="1")
+            elif entry != num:
+                CTkMessagebox(title="Error", message="Incorrect Email / Password")
+            else:
+                logged()
+        except:
+            CTkMessagebox(title="Error", message="Account not available")
+
     # Login page Happens when the login button is pressed
     lg_frame = customtkinter.CTkFrame(master=main)
     lg_frame.pack(fill="both", expand=True, padx=10, pady=10)
@@ -120,7 +146,10 @@ def login():
     img2 = customtkinter.CTkImage(light_image=Image.open(img2_path), size=(img2_w, img2_h))
     lab2 = customtkinter.CTkLabel(master=lg_frame, text=" ", image=img2)
     lab2.pack(fill="both", expand=True)
-
+    # This section is for the entry of the account number
+    an_ent = customtkinter.CTkEntry(master=lg_frame, placeholder_text="Enter your Account number", width=200, height=20,
+                                    bg_color="blue", fg_color="blue")
+    an_ent.place(anchor=CENTER, relx=.5, rely=.4)
     # This entry section is for the user to enter their email address
     email_ent = customtkinter.CTkEntry(master=lg_frame, placeholder_text="Enter your Email", width=200, height=20,
                                        bg_color="blue", fg_color="blue")
@@ -133,7 +162,7 @@ def login():
 
     # This button is for when the user has input their data and wants to log in
     login_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, text="Login", fg_color="blue",
-                                        bg_color="blue", command=lambda: enter(logged, lg_frame))
+                                        bg_color="blue", command=login_check)
     login_btn.place(anchor=CENTER, relx=.5, rely=.7)
 
     # This is a forgot log in details for the user to recover their data
@@ -248,6 +277,8 @@ def file_create(name, mail, pas, ac_type):
     except:
         CTkMessagebox(title="ERROR", message="Try Again", icon="cancel")
 
+
+# Login
 
 # Check the balance
 # Delete an account
