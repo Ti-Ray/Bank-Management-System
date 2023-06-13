@@ -165,7 +165,9 @@ def reg():
                 name = nm_ent.get()
                 mail = em_ent.get()
                 pas = pass_ent.get()
-                file_create()
+                ac_type = acc_type.get()
+                file_create(name, mail, pas, ac_type)
+                back(main_pg, reg_frame)
         except:
             CTkMessagebox(title="ERR", message="Check the code in try above code line 151 - 163")
             main_pg()
@@ -230,17 +232,18 @@ def back(prev_page, val):
 # Create an account
 
 
-def file_create():
+def file_create(name, mail, pas, ac_type):
     try:
         global account
         account = random.randint(0, 20)
         file_cr = open(str(account)+"-reg.txt", "a+")
         # Error begins here where the files are being created but data is not being fetched
         # Start zone
-        file_cr.write(nm_ent.get() + "\n")
-        file_cr.write(em_ent() + "\n")
-        file_cr.write(acc_type() + "\n")
-        file_cr.write(pass_ent.get() + "\n")
+        file_cr.write(name + "\n")
+        file_cr.write(mail + "\n")
+        file_cr.write(pas + "\n")
+        file_cr.write(ac_type + "\n")
+        file_cr.close()
         CTkMessagebox(title="SUCCESS", message=("Success Your Account numbers is " + str(account)), icon="check")
     except:
         CTkMessagebox(title="ERROR", message="Try Again", icon="cancel")
