@@ -7,6 +7,7 @@ from CTkMessagebox import CTkMessagebox
 import customtkinter
 from tkinter import *
 from PIL import Image
+import os
 
 
 customtkinter.set_default_color_theme("dark-blue")
@@ -34,7 +35,16 @@ global lg_pass_ent
 global bal
 
 
-def logged():
+def logged(val):
+    # Delete an account  --> (delete account)
+    def del_val():
+        if os.path.exists(val+"-reg.txt") and os.path.exists(val+"-inf.txt"):
+            os.remove(val+"-reg.txt")  # This statement is to remove the registration file
+            os.remove(val+"-inf.txt")  # This statement is to remove the info file
+            back(main_pg, md_page)  # This statement is to exit the deleted account
+        else:
+            CTkMessagebox(title="Error", message="Files do not exist")  # This statement is to be displayed during error
+
     md_page = customtkinter.CTkFrame(master=main)
     md_page.pack(fill="both", expand=True, padx=10, pady=10)
     img_w = 700
@@ -62,7 +72,7 @@ def logged():
 
     # This button is for the user to end their account
     del_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Delete Account", text_color="red",
-                                      fg_color="green")
+                                      fg_color="green", command=del_val)
     del_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
     # This button is for the user to logout of their account
@@ -117,7 +127,7 @@ def login():
     def login_check():
         try:
             path = str(an_ent.get()+"-reg.txt")  # Fetches user input on their account number
-            # global ac_num
+            val = an_ent.get()
             num = (lg_pass_ent.get()+"\n")  # Fetches user input on the password
             em = (email_ent.get()+"\n")  # Fetches user input on the email
             file_ch = open(path, "r")
@@ -130,7 +140,8 @@ def login():
             elif entry != num:
                 CTkMessagebox(title="Error", message="Incorrect Email / Password")
             else:
-                enter(logged, lg_frame)
+                lg_frame.destroy()
+                logged(val)
         except:
             CTkMessagebox(title="Error", message="Account not available")
 
@@ -283,8 +294,8 @@ def file_create(name, mail, pas, ac_type):
 
 
 # Check the account information --> (check balance , statement)
-# Delete an account  --> (delete account)
 # Edit account information --> (deposit , credit)
+# def account_info():
 # Functions
 main_pg()
 main.mainloop()
