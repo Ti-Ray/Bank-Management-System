@@ -63,11 +63,13 @@ def logged(val):
     dep_btn.place(anchor=CENTER, relx=.5, rely=.5)
 
     # This button is for the user to check the balance in their bank account
-    check_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Check Balance")
+    check_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Check Balance",
+                                        command=lambda: balance_info(val))
     check_btn.place(anchor=CENTER, relx=.5, rely=.6)
 
     # This button is for the user to request a bank statement for their accounts transactions
-    state_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Statement")
+    state_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Statement",
+                                        command=lambda: state(val))
     state_btn.place(anchor=CENTER, relx=.5, rely=.7)
 
     # This button is for the user to end their account
@@ -294,8 +296,31 @@ def file_create(name, mail, pas, ac_type):
 
 
 # Check the account information --> (check balance , statement)
+def balance_info(val):
+    file = open(val+"-inf.txt")
+    name = file.readline()
+    balance = file.readline()
+    CTkMessagebox(title="BALANCE", message=balance)
+    file.close()
+
+
+def state(val):
+    def cls():
+        dis_page.destroy()
+    file = open(val+"-inf.txt", "r")
+    display = file.read()
+    dis_page = Tk()
+    dis_page.config(bg="grey")
+    statement = Text(dis_page, width=50, height=30, bg="grey")
+    statement.pack(padx=10, pady=10)
+    statement.insert(END, display)
+    cls_btn = Button(dis_page, command=cls, text="CLOSE")
+    cls_btn.pack(padx=10, pady=10)
+    dis_page.mainloop()
+    file.close()
+
+
 # Edit account information --> (deposit , credit)
-# def account_info():
 # Functions
 main_pg()
 main.mainloop()
