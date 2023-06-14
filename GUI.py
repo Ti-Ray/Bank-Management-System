@@ -267,7 +267,7 @@ def file_create(name, mail, pas, ac_type):
         file_inf = open(str(account)+"-inf.txt", "a+")  # This file is to hold account information
         file_inf.write(name + "\n")
         file_inf.write(ac_type)
-        file_inf.write("Account Balance : "+str(bal))  # Writes initial user account balance
+        file_inf.write(" Account Balance : "+str(bal))  # Writes initial user account balance
         # Error begins here where the files are being created but data is not being fetched
         # Start zone
         file_cr.write(name + "\n")  # Writes the users name
