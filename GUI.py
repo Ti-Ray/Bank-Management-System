@@ -31,6 +31,7 @@ global account
 global an_ent
 global email_ent
 global lg_pass_ent
+global bal
 
 
 def logged():
@@ -112,26 +113,24 @@ def main_pg():
 
 
 def login():
+    # Login
     def login_check():
         try:
-            path = str(an_ent.get()+"-reg.txt")
-            num = lg_pass_ent.get()
-            em = email_ent.get()
+            path = str(an_ent.get()+"-reg.txt")  # Fetches user input on their account number
+            # global ac_num
+            num = (lg_pass_ent.get()+"\n")  # Fetches user input on the password
+            em = (email_ent.get()+"\n")  # Fetches user input on the email
             file_ch = open(path, "r")
             name = file_ch.readline()  # Reads the first line containing the name
             e_mail = file_ch.readline()  # Reads the second line containing the email
             entry = file_ch.readline()  # Reads the third line containing the password
             a_type = file_ch.readline()  # Reads the account type
-            print(name)
-            print(e_mail)
-            print(entry)
-            print(a_type)
             if em != e_mail:
-                CTkMessagebox(title="Error", message="1")
+                CTkMessagebox(title="Error", message="Incorrect Email / Password")
             elif entry != num:
                 CTkMessagebox(title="Error", message="Incorrect Email / Password")
             else:
-                logged()
+                enter(logged, lg_frame)
         except:
             CTkMessagebox(title="Error", message="Account not available")
 
@@ -259,30 +258,33 @@ def back(prev_page, val):
 # version.
 
 # Create an account
-
-
 def file_create(name, mail, pas, ac_type):
     try:
         global account
+        bal = 0
         account = random.randint(0, 20)
-        file_cr = open(str(account)+"-reg.txt", "a+")
+        file_cr = open(str(account)+"-reg.txt", "a+")  # This is the section to hold user data
+        file_inf = open(str(account)+"-inf.txt", "a+")  # This file is to hold account information
+        file_inf.write(name + "\n")
+        file_inf.write(ac_type)
+        file_inf.write("Account Balance : "+str(bal))  # Writes initial user account balance
         # Error begins here where the files are being created but data is not being fetched
         # Start zone
-        file_cr.write(name + "\n")
-        file_cr.write(mail + "\n")
-        file_cr.write(pas + "\n")
-        file_cr.write(ac_type + "\n")
+        file_cr.write(name + "\n")  # Writes the users name
+        file_cr.write(mail + "\n")  # Writes the users email address
+        file_cr.write(pas + "\n")  # Writes the users password
+        file_cr.write(ac_type + "\n")  # Writes the users account type
+        # Here we close the files that were open
         file_cr.close()
+        file_inf.close()
         CTkMessagebox(title="SUCCESS", message=("Success Your Account numbers is " + str(account)), icon="check")
     except:
         CTkMessagebox(title="ERROR", message="Try Again", icon="cancel")
 
 
-# Login
-
-# Check the balance
-# Delete an account
-# Edit account information
+# Check the account information --> (check balance , statement)
+# Delete an account  --> (delete account)
+# Edit account information --> (deposit , credit)
 # Functions
 main_pg()
 main.mainloop()
