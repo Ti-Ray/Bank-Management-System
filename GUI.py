@@ -8,6 +8,7 @@ import customtkinter
 from tkinter import *
 from PIL import Image
 import os
+import datetime
 
 
 customtkinter.set_default_color_theme("dark-blue")
@@ -324,6 +325,7 @@ def state(val):
 
 # Edit account information --> (deposit , credit)
 def deposit(val):
+    date_time = datetime.datetime.now()
     # This function is to calculate and remove from the account balance the amount to be credited
     def calculate_dep():
         file = open(val+"-inf.txt", "r+")
@@ -332,7 +334,7 @@ def deposit(val):
         try:
             value = int(dep_ent.get())
             if value > 0:
-                word.append("Deposit :"+str(balance)+" + "+str(value)+"\n")
+                word.append("Deposit :"+str(balance)+" + "+str(value)+" : "+str(date_time)+"\n")
                 balance += value
                 word[1] = str(balance) + "\n"
                 file.seek(0)  # This redirects the file to the start in order to rewrite with the correct balance
@@ -358,13 +360,14 @@ def deposit(val):
 
 def credit(val):
     def calculate_cred():
+        date_time = datetime.datetime.now()
         file = open(val+"-inf.txt", "r+")
         word = file.readlines()
         balance = int(word[1])
         try:
             value = int(cred_ent.get())
             if value > 0:
-                word.append("Withdrawal :"+str(balance)+" - "+str(value)+"\n")
+                word.append("Withdrawal :"+str(balance)+" - "+str(value)+" : "+str(date_time)+"\n")
                 balance -= value  # Calculation of withdrawal
                 word[1] = str(balance) + "\n"
                 file.seek(0)  # Takes the cursor to the start line and rewrites the file
