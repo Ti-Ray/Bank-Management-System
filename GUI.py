@@ -332,6 +332,7 @@ def deposit(val):
         try:
             value = int(dep_ent.get())
             if value > 0:
+                word.append("Deposit :"+str(balance)+" + "+str(value)+"\n")
                 balance += value
                 word[1] = str(balance) + "\n"
                 file.seek(0)  # This redirects the file to the start in order to rewrite with the correct balance
@@ -363,6 +364,7 @@ def credit(val):
         try:
             value = int(cred_ent.get())
             if value > 0:
+                word.append("Withdrawal :"+str(balance)+" - "+str(value)+"\n")
                 balance -= value  # Calculation of withdrawal
                 word[1] = str(balance) + "\n"
                 file.seek(0)  # Takes the cursor to the start line and rewrites the file

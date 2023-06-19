@@ -1,9 +1,6 @@
 12
-1000
-
-
-
-
-
-
-
+2000
+Deposit :1100 + 1000
+Withdrawal :2100 - 100
+Withdrawal :2000 - 100
+Deposit :1900 + 100
