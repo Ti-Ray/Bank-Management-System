@@ -314,7 +314,7 @@ def state(val):
     dis_page = Tk()
     dis_page.config(bg="grey")
     dis_page.title("STATEMENT")
-    statement = Text(dis_page, width=50, height=30, bg="grey")
+    statement = Text(dis_page, width=60, height=30, bg="grey")
     statement.pack(padx=10, pady=10)
     statement.insert(END, display)
     cls_btn = Button(dis_page, command=cls, text="CLOSE")
