@@ -15,6 +15,7 @@ customtkinter.set_appearance_mode("Dark")
 
 main = customtkinter.CTk()
 main.geometry("850x600")
+main.title("BMS")
 
 # File set up
 
@@ -55,11 +56,11 @@ def logged(val):
     lab4.pack(fill="both", expand=True, padx=10, pady=10)
 
     # This button is for the user to carry out a cash withdrawal from their account
-    with_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Withdraw")
+    with_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Withdraw", command=lambda: credit(val))
     with_btn.place(anchor=CENTER, relx=.5, rely=.4)
 
     # This button is for the user to deposit cash to their account
-    dep_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Deposit")
+    dep_btn = customtkinter.CTkButton(master=md_page, width=100, height=2, text="Deposit", command=lambda: deposit(val))
     dep_btn.place(anchor=CENTER, relx=.5, rely=.5)
 
     # This button is for the user to check the balance in their bank account
@@ -114,14 +115,14 @@ def main_pg():
 
     # This button is to completely close the program
     cls_btn = customtkinter.CTkButton(master=page1, width=100, height=50, bg_color='black', fg_color='brown',
-                                      text="close", command=close)
+                                      text="CLOSE", command=close)
     cls_btn.place(anchor=CENTER, relx=.5, rely=.6)
 
     # This button is to take the user to the company website to learn more about the company
     about_link = customtkinter.CTkButton(master=page1, text="About us", bg_color="black", fg_color="brown", width=100,
                                          height=50)
     about_link.place(anchor=CENTER, relx=.5, rely=.7)
-    about_link.bind("<Button-1>", lambda e: callback("https://www.youtube.com/"))
+    about_link.bind("<Button-1>", lambda e: callback("https://github.com/Ti-Ray"))
 
 
 def login():
@@ -279,8 +280,8 @@ def file_create(name, mail, pas, ac_type):
         file_cr = open(str(account)+"-reg.txt", "a+")  # This is the section to hold user data
         file_inf = open(str(account)+"-inf.txt", "a+")  # This file is to hold account information
         file_inf.write(name + "\n")
-        file_inf.write(ac_type)
-        file_inf.write(" Account Balance : "+str(bal))  # Writes initial user account balance
+        # file_inf.write(ac_type)
+        file_inf.write(str(bal))  # Writes initial user account balance
         # Error begins here where the files are being created but data is not being fetched
         # Start zone
         file_cr.write(name + "\n")  # Writes the users name
@@ -311,6 +312,7 @@ def state(val):
     display = file.read()
     dis_page = Tk()
     dis_page.config(bg="grey")
+    dis_page.title("STATEMENT")
     statement = Text(dis_page, width=50, height=30, bg="grey")
     statement.pack(padx=10, pady=10)
     statement.insert(END, display)
@@ -321,6 +323,69 @@ def state(val):
 
 
 # Edit account information --> (deposit , credit)
+def deposit(val):
+    # This function is to calculate and remove from the account balance the amount to be credited
+    def calculate_dep():
+        file = open(val+"-inf.txt", "r+")
+        word = file.readlines()
+        balance = int(word[1])
+        try:
+            value = int(dep_ent.get())
+            if value > 0:
+                balance += value
+                word[1] = str(balance) + "\n"
+                file.seek(0)  # This redirects the file to the start in order to rewrite with the correct balance
+                file.writelines(word)  # This line writes to the file the initial owners name and the new balance
+            else:
+                CTkMessagebox(title="Error", message="Enter a valid Deposit amount")  # Show an error when value is empty
+        except:
+            CTkMessagebox(title="Error", message="Enter a number")
+
+        file.close()
+        dep.destroy()
+    dep = Tk()
+    dep.config(bg="grey")
+    dep.title("DEPOSIT")
+    dep_amount = Label(dep, text="Enter Deposit Amount: ")
+    dep_amount.grid(row=0, column=0, padx=10, pady=10)
+    dep_ent = Entry(dep, width=10)
+    dep_ent.grid(row=0, column=1, padx=10, pady=10)
+    dep_btn = Button(dep, text="DEPOSIT", bg="green", command=calculate_dep)
+    dep_btn.grid(row=1, column=1, padx=10, pady=10)
+    dep.mainloop()
+
+
+def credit(val):
+    def calculate_cred():
+        file = open(val+"-inf.txt", "r+")
+        word = file.readlines()
+        balance = int(word[1])
+        try:
+            value = int(cred_ent.get())
+            if value > 0:
+                balance -= value  # Calculation of withdrawal
+                word[1] = str(balance) + "\n"
+                file.seek(0)  # Takes the cursor to the start line and rewrites the file
+                file.writelines(word)  # Writes the username and new balance
+            else:
+                CTkMessagebox(title="Error", message="Enter a valid Deposit amount")  # Error when value is NULL
+        except:
+            CTkMessagebox(title="Error", message="Enter a number")
+
+        file.close()
+        cred.destroy()
+    cred = Tk()
+    cred.config(bg="grey")
+    cred.title("CREDIT")
+    cred_amount = Label(cred, text="Enter Credit Amount: ")
+    cred_amount.grid(row=0, column=0, padx=10, pady=10)
+    cred_ent = Entry(cred, width=10)
+    cred_ent.grid(row=0, column=1, padx=10, pady=10)
+    cred_btn = Button(cred, text="Withdraw", bg="red", command=calculate_cred)
+    cred_btn.grid(row=1, column=0, padx=10, pady=10)
+    cred.mainloop()
+
+
 # Functions
 main_pg()
 main.mainloop()
