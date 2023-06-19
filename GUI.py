@@ -1,6 +1,3 @@
-# # POINTS TO REMEMBER
-# - Remember to change the about us link
-# - Remember to comment properly and define clearly
 import random
 import webbrowser
 from CTkMessagebox import CTkMessagebox
