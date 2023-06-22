@@ -9,7 +9,6 @@ customtkinter.set_appearance_mode("Dark")
 main = customtkinter.CTk()
 main.geometry("850x600")
 main.title("BMS")
-main.wm_attributes('-transparentcolor', '#ab23ff')
 # File set up
 
 # def create_account():
@@ -17,7 +16,7 @@ main.wm_attributes('-transparentcolor', '#ab23ff')
 
 
 # # Frames
-def logged(val):
+def logged():
     # Delete an account  --> (delete account)
 
     md_page = customtkinter.CTkFrame(master=main)
@@ -136,7 +135,7 @@ def login():
     for_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
     # This is a back button that returns the user to the main page
-    bck_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, bg_color='#ab23ff', fg_color='blue',
+    bck_btn = customtkinter.CTkButton(master=lg_frame, width=100, height=50, bg_color='black', fg_color='blue',
                                       text='BACK', command=lambda: back(main_pg, lg_frame))
     bck_btn.place(anchor=CENTER, relx=.1, rely=.1)
 
@@ -180,7 +179,7 @@ def reg():
                                       fg_color="blue")
     reg_btn.place(anchor=CENTER, relx=.5, rely=.8)
 
-    bck_btn = customtkinter.CTkButton(master=reg_frame, width=100, height=50, bg_color='black', fg_color='blue',
+    bck_btn = customtkinter.CTkButton(master=reg_frame, width=100, height=50, bg_color='blue', fg_color='blue',
                                       text='BACK', command=lambda: back(main_pg, reg_frame))
     bck_btn.place(anchor=CENTER, relx=.1, rely=.1)
 
